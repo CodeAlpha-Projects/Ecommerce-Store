@@ -4,7 +4,7 @@
 $db_server = 'localhost';
 $db_user ='root';
 $db_pass = '@Bashanshullam2209';
-$db_name = 'Male_Store';
+$db_name = 'Zenith_Store';
 $conn = '';
 
 try{

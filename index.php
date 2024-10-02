@@ -1,3 +1,8 @@
+<?php
+include('database/connect.php');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,8 +18,7 @@
 
 </head>
 <body>
-
-        <section class=" top-txt ">
+    <section class=" top-txt ">
             <div class="head container ">
                 <div class="head-txt ">
                     <p>Free shipping, 30-day return or refund guarantee.</p>
@@ -37,14 +41,28 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#sellers">Shop</a></li>
                     <li><a href="#news">Blog</a></li>
-                    <li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#cart">Cart (<span class="total-count"></span>)</button></li>
+                    <li><button type="button" class="cart-btn" data-toggle="modal" data-target="#cart">Cart
+                     <?php
+                      
+                      $value = "SELECT * FROM cart";
+
+                      $result = mysqli_query($conn, $value);
+
+                      $items = mysqli_num_rows($result);
+
+                      echo'
+                       <span>('.$items.')</span>
+                      ';
+                    ?>
+
+                    </button></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="logo">
                     <img src="https://i.postimg.cc/TP6JjSTt/logo.webp" alt="">
                 </div>
             </div>
-        </nav>
+ </nav>
 
 
 
@@ -60,14 +78,46 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="show-cart table">
+        <table class="show-cart table container">
+                 <thead>
+                    <th>SN</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>                             
+                    <th>Operation</th>    
+                </thead>
+                <tbody>
+
+       <?php
+         $sql = "SELECT * from cart";
+             $result =mysqli_query($conn, $sql);
+             while($row = mysqli_fetch_assoc($result)){
+                            $SN = $row['SN'];
+                            $Product_Name = $row['Product_Name'];
+                            $Price = $row['Price'];
+                            $P_Image = $row['P_Image'];
+            
+          echo '
+              <tr>
+                  <td>'.$SN.'</td>
+                  <td>'.$Product_Name.'</td>
+                  <td>$ '.$Price.'.00</td> 
+                  <td><input type="number" class="cart-q"></td>
+                  <td class="operations">
+                      <a href="delete_item.php?deleteid='.$SN.'"><button class="delete">Delete</button></a>
+                  </td>                                      
+              </tr>
           
-        </table>
+          ';
+     }   
+   ?>
+</tbody>
+</table>
         <div>Total price: $<span class="total-cart"></span></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Order now</button>
+        <button type="button" class="cart-btn">Order now</button>
       </div>
     </div>
   </div>
@@ -76,16 +126,14 @@
 <!-- End of Modal -->
 
 
-
-
 <section id="home">
             <div class="home_page ">
                 <div class="home_img ">
                     <img src="https://i.postimg.cc/t403yfn9/home2.jpg" alt="img ">
                 </div>
                 <div class="home_txt ">
-                    <p class="collectio ">SUMMER COLLECTION</p>
-                    <h2>FALL - WINTER<br>Collection 2023</h2>
+                    <p class="collection ">SUMMER COLLECTION</p>
+                    <h2>FALL - WINTER<br>Collection 2024</h2>
                     <div class="home_label ">
                         <p>A specialist label creating luxury essentials. Ethically crafted<br>with an unwavering commitment to exceptional quality.</p>
                     </div>
@@ -125,120 +173,62 @@
                 </div>
             </div>
         </section>
-        <section id="sellers">
-            <div class="seller container">
-                <h2>Top Sales</h2>
-                <div class="best-seller">
+
+
+
+
+<section id="sellers">
+     <div class="seller container">
+        <h2>Top Sales</h2>
+    <div class="best-seller">
+
+      <?php
+
+            $get_Product ="SELECT * FROM Products";
+            $feed = mysqli_query($conn, $get_Product);
+            while($row = mysqli_fetch_assoc($feed)){
+            
+                $Id = $row['SN'];
+                $P_Name = $row['P_Name'];
+                $P_Price = $row['Price'];
+                $Stock = $row['Stock'];
+                $P_Image = $row['P_Image'];
+
+
+                  echo'
                     <div class="best-p1">
-                        <img src="https://i.postimg.cc/8CmBZH5N/shoes.webp" alt="img">
+                        <img src="'.$P_Image.'" alt="img">
                         <div class="best-p1-txt">
                             <div class="name-of-p">
-                                <p>PS England Shoes</p>
+                                <p>'.$P_Name.'</p>
                             </div>
                             <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
+                                <i class="bx bxs-star"> </i>
+                                <i class="bx bxs-star"></i>
+                                <i class="bx bxs-star"></i>
+                                <i class="bx bx-star"></i>
+                                <i class="bx bx-star"></i>
                             </div>
                             <div class="price">
-                                &dollar;37.24
+                                &dollar;'.$P_Price.'
                                 <div class="colors">
-                                    <i class='bx bxs-circle red'></i>
-                                    <i class='bx bxs-circle blue'></i>
-                                    <i class='bx bxs-circle white'></i>
+                                    <i class="bx bxs-circle red"></i>
+                                    <i class="bx bxs-circle blue"></i>
+                                    <i class="bx bxs-circle white"></i>
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
-                            </div>
-                            <!-- <div class="add-cart">
-                                <button>Add To Cart</button>
-                            </div> -->
-                        </div>
-                    </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England Jacket</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;17.24
-                                <div class="colors">
-                                    <i class='bx bxs-circle green'></i>
-                                    <i class='bx bxs-circle grey'></i>
-                                    <i class='bx bxs-circle brown'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
+                                <button><a  name="add-cart" href="add_to_cart.php?id='.$Id.'">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/j2FhzSjf/bs2.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England Shirt</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bx-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;27.24
-                                <div class="colors">
-                                    <i class='bx bxs-circle brown'></i>
-                                    <i class='bx bxs-circle green'></i>
-                                    <i class='bx bxs-circle blue'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/QtjSDzPF/bs3.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England Shoes</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;43.67
-                                <div class="colors">
-                                    <i class='bx bxs-circle red'></i>
-                                    <i class='bx bxs-circle grey'></i>
-                                    <i class='bx bxs-circle blue'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="#">Buy  Now</a></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="seller container">
+                ';
+
+           }
+       ?>
+     </div>
+    </div>
+        <div class="seller container">
                 <h2>New Arrivals</h2>
                 <div class="best-seller">
                     <div class="best-p1">
@@ -289,7 +279,7 @@
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
+                                <button><a href="">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
@@ -315,7 +305,7 @@
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
+                                <button><a href="">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
@@ -341,7 +331,7 @@
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
+                                <button><a href="">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
@@ -372,7 +362,7 @@
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
+                                <button><a href="">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
@@ -398,7 +388,7 @@
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
+                                <button><a href="">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
@@ -424,7 +414,7 @@
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
+                                <button><a href="">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
@@ -450,13 +440,17 @@
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a href="https://codepen.io/sanketbodke/full/mdprZOq">Buy  Now</a></button>
+                                <button><a href="">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
+
+
+
         <section id="news">
             <div class="news-heading">
                 <p>LATEST NEWS</p>
@@ -501,6 +495,9 @@
                 </div>
             </div>
         </section>
+
+
+
         <section id="contact">
             <div class="contact container">
             <div class="map">

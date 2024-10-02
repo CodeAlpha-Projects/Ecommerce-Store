@@ -1,0 +1,6 @@
+insert into products(P_Name , Price, P_Image)
+ Values('PS England Shoe', 37.24, 'https://i.postimg.cc/8CmBZH5N/shoes.webp'),
+	   ('PS England Jacket', 37.24, 'https://i.postimg.cc/76X9ZV8m/Screenshot_from_2022-06-03_18-45-12.png'),
+       ('PS England Shirt', 37.24, 'https://i.postimg.cc/j2FhzSjf/bs2.png'),
+       ('PS England Shoez', 37.24, 'https://i.postimg.cc/QtjSDzPF/bs3.png')
+ ;

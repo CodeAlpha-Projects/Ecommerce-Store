@@ -1,0 +1,10 @@
+Create TABLE Orders(
+  SN INT PRIMARY KEY AUTO_INCREMENT, 
+  Customer_Name varchar(255),
+  Phone varchar(255),
+  Email varchar(255),
+  Product_Name varchar(200),
+  Price int,
+  Order_Date datetime DEFAULT now(),   
+  Order_Status varchar(100)
+);

@@ -637,7 +637,7 @@ body {
 }
 
 .best-seller .buy-now button,
-.best-seller .add-cart button {
+.best-seller .add-cart button, .cart-btn {
     padding: 10px 15px;
     margin-top: 5px;
     font-size: 14px;
@@ -1271,3 +1271,5 @@ iframe {
         margin-bottom: 0px;
     }
 }
+
+
