@@ -96,13 +96,18 @@ form{
 }
 
 .sect input{
-    border: none;
+    border: 1px solid #111 ;
     background-color:#f3f3f3;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 0.5rem;
     padding-top: 0.5rem;
     color: #3b3b3b;
+}
+
+
+.add-btn{
+    width: 4rem;
 }
 
 
@@ -145,4 +150,33 @@ form{
     border: none;
 
   }
+
+
+
+  .product,.p-details{
+     display:flex;
+     align-items:center;
+    justify-content:center;
+   }
+
+   .product{
+       gap:2rem;
+       margin:2rem 0 2rem 0;
+   }
+
+   .p-details{
+    flex-direction:column;
+    align-items:start;
+   }
+
+   .detail{
+    color:#7380ec;
+   }
+
+   .product-u-image{
+      border-radius:50%;
+      border:1px solid green;
+      width: 150px;
+      height:auto;
+    }
 

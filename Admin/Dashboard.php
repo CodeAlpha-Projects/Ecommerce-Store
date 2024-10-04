@@ -1,11 +1,11 @@
 <?php
 
-session_start();
-if(!isset($_SESSION['admin'])){
-  header('location: index.php');
-}
+// session_start();
+// if(!isset($_SESSION['admin'])){
+//   header('location: index.php');
+// }
 
-include('databases/users_db.php');
+include('databases/connect.php');
 ?> 
 
 <!DOCTYPE html>
@@ -13,7 +13,7 @@ include('databases/users_db.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zetech-Online-Voting Admin Panel</title>
+    <title>Zenith Stores: Admin Panel</title>
     <link rel="stylesheet" href="Assets/Css/dashboard.css">
     <link rel="stylesheet" href="Assets/Css/analytics.css">
     <!-- material icon -->
@@ -32,7 +32,7 @@ include('databases/users_db.php');
                               <div class="logo logo-image">
                               <!-- The logo is here -->
                               </div>
-                              <h1>Zetech Online</h1>
+                              <h1>Zenith Stores</h1>
                           </div>
 
                        <!-- Top right -->
@@ -216,7 +216,7 @@ include('databases/users_db.php');
                   <span class="material-icons-sharp">bar_chart</span>
                   <div class="middle">
                      <div class="left">
-                      <h3>Total Candidates</h3>
+                      <h3>Total Sales</h3>
 
                     <!--Total Candidates start-->
                     <?php
@@ -241,7 +241,7 @@ include('databases/users_db.php');
 
                         <!--Candidate Percentage Calculation start -->
                               <?php
-                                  $sql = "SELECT * FROM candidates";
+                                  $sql = "SELECT * FROM products";
                                   $result = mysqli_query($conn, $sql);
                                   $total_candidates = mysqli_num_rows($result);
                               

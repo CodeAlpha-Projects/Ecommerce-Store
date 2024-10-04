@@ -6,12 +6,12 @@ if(isset($_GET["deleteid"])){
 
             $id = $_GET["deleteid"];
 
-            $sql ="DELETE FROM `candidates` where SN = $id";
+            $sql ="DELETE FROM `products` where SN = $id";
 
             $result = mysqli_query($conn, $sql);
 
             if($result){
-                header('location: ../candidates.php');
+                header('location: ../products.php');
             }
   }
 

@@ -1,10 +1,10 @@
 <?php
-session_start();
-if(!isset($_SESSION['admin'])){
-  header('location: index.php');
-}
+// session_start();
+// if(!isset($_SESSION['admin'])){
+//   header('location: index.php');
+// }
 
-include('databases/users_db.php');
+include('databases/connect.php');
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ include('databases/users_db.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zetech-Online-Voting Admin Panel</title>
+    <title>Zenith Stores Admin Panel</title>
     <link rel="stylesheet" href="Assets/Css/user.css">
     <!-- material icon -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" />
@@ -27,9 +27,9 @@ include('databases/users_db.php');
                             </button>
 
                             <div class="top-hero">
-                              <div class="logo">
-                              </div>
-                              <h1>Zetech Online</h1>
+                              <!-- <div class="logo">
+                              </div> -->
+                              <h1>Zenith Stores</h1>
                           </div>
 
                        <!-- Top right -->
@@ -133,64 +133,50 @@ include('databases/users_db.php');
     <main>
 
     <div class="title-sec">
-      <h1>Registered Candidates</h1>
+      <h1>Your Stock</h1>
       <a href="dashboard.php" class ="home-btn"><button>Home</button></a>  
     </div>
-       
+
     <div class="add-btn">
-      <a href="candidates_operation/add.php"><button>Add User</button></a>
+      <a href="product_operation/add.php"><button>Add Product</button></a>
     </div>
+
+
 
         <div class="table-cont">
                <table class="users-t">
                           <thead>
                               <th>SN</th>
-                              <th>First_Name</th>
-                              <th>Last_Name</th>
-                              <th>Registration_No</th>                             
-                              <th>Level_Study</th>
-                              <th>Course</th>
-                              <th>Year_Study</th>
-                              <th>Position</th>                              
-                              <th>Grade</th>
-                              <th>Reg_Date</th>
+                              <th>Product_Name</th>
+                              <th>Category</th>
+                              <th>Price</th>
+                              <th>Stock-Size</th>                             
+                              <th>Product Image</th>
                               <th>Operation</th>    
                           </thead>
                           <tbody>
 
-
                           <?php
-
-                             $sql = "SELECT * from candidates";
+                             $sql = "SELECT * from products";
                                $result =mysqli_query($conn, $sql);
                                while($row = mysqli_fetch_assoc($result)){
                                     $SN = $row['SN'];
-                                    $F_name = $row['First_Name'];
-                                    $L_name = $row['Last_Name'];
-                                    $Reg_no = $row['Registration_No'];
-                                    $L_study = $row['Level_Study'];
-                                    $course = $row['Course'];
-                                    $Y_study = $row['Year_Study'];     
-                                    $user_position = $row['Position'];
-                                    $user_grade = $row['Grade'];
-                                    $Reg_date = $row['Reg_Date'];
-      
-                      
-                                    echo '
+                                    $P_name = $row['P_Name'];
+                                    $Category = $row['Category'];
+                                    $Price = $row['Price'];
+                                    $Stock = $row['Stock'];
+                                    $P_Image = $row['P_Image'];
+                                  echo '
                                         <tr>
                                             <td>'.$SN.'</td>
-                                            <td>'.$F_name.'</td>
-                                            <td>'.$L_name.'</td>
-                                            <td>'. $Reg_no.'</td>
-                                            <td>'.$L_study.'</td>
-                                            <td>'.$course.'</td>
-                                            <td>'.$Y_study.'</td>                                            
-                                            <td>'.$user_position.'</td>
-                                            <td>'.$user_grade.'</td>
-                                            <td class="reg-d">'.$Reg_date.'</td>  
+                                            <td>'.$P_name.'</td>
+                                            <td>'.$Category.'</td>
+                                            <td>$ '.$Price.'</td>
+                                            <td>'.$Stock.'</td>
+                                            <td><img class="display-img" src="'.$P_Image.'"></td>
                                             <td class="operations">
-                                                <a href="candidates_operation/update.php? updateid='.$SN.'"><button class="update">Update</button></a>
-                                                <a href="candidates_operation/delete.php? deleteid='.$SN.'"><button class="delete">Delete</button></a>
+                                                <a href="product_operation/update.php? updateid='.$SN.'"><button class="update">Update</button></a>
+                                                <a href="product_operation/delete.php? deleteid='.$SN.'"><button class="delete">Delete</button></a>
                                             </td>                                      
                                         </tr>
                                     
@@ -205,6 +191,14 @@ include('databases/users_db.php');
               </div>     
       </main>                                     
   </div>
+
+
+   <style>
+     .display-img{
+      width: 100px;
+       height:auto;
+     }
+  </style>
       <script src="Assets/Js/dashboard.js"></script> 
   </body>
 </html>

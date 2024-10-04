@@ -8,8 +8,8 @@ include('database/connect.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Male Fashion Store</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Zenith Stores</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
@@ -41,7 +41,8 @@ include('database/connect.php');
                     <li><a href="#home">Home</a></li>
                     <li><a href="#sellers">Shop</a></li>
                     <li><a href="#news">Blog</a></li>
-                    <li><button type="button" class="cart-btn" data-toggle="modal" data-target="#cart">Cart
+                    <li><a href="#contact">Contact</a></li>
+                    <li> <a href="cart.php"> <button type="button" class="cart-btn">Cart
                      <?php
                       
                       $value = "SELECT * FROM cart";
@@ -55,75 +56,16 @@ include('database/connect.php');
                       ';
                     ?>
 
-                    </button></li>
-                    <li><a href="#contact">Contact</a></li>
+                    </button></a></li>
+                    
                 </ul>
                 <div class="logo">
-                    <img src="https://i.postimg.cc/TP6JjSTt/logo.webp" alt="">
+                    <h2>Zenith Stores</h2>
+                    <!-- <img src="https://i.postimg.cc/TP6JjSTt/logo.webp" alt=""> -->
                 </div>
             </div>
  </nav>
 
-
-
-<!-- Cart Modal -->
-<!-- Modal -->
-<div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <table class="show-cart table container">
-                 <thead>
-                    <th>SN</th>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>                             
-                    <th>Operation</th>    
-                </thead>
-                <tbody>
-
-       <?php
-         $sql = "SELECT * from cart";
-             $result =mysqli_query($conn, $sql);
-             while($row = mysqli_fetch_assoc($result)){
-                            $SN = $row['SN'];
-                            $Product_Name = $row['Product_Name'];
-                            $Price = $row['Price'];
-                            $P_Image = $row['P_Image'];
-            
-          echo '
-              <tr>
-                  <td>'.$SN.'</td>
-                  <td>'.$Product_Name.'</td>
-                  <td>$ '.$Price.'.00</td> 
-                  <td><input type="number" class="cart-q"></td>
-                  <td class="operations">
-                      <a href="delete_item.php?deleteid='.$SN.'"><button class="delete">Delete</button></a>
-                  </td>                                      
-              </tr>
-          
-          ';
-     }   
-   ?>
-</tbody>
-</table>
-        <div>Total price: $<span class="total-cart"></span></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="cart-btn">Order now</button>
-      </div>
-    </div>
-  </div>
-</div> 
-
-<!-- End of Modal -->
 
 
 <section id="home">
@@ -176,15 +118,14 @@ include('database/connect.php');
 
 
 
-
-<section id="sellers">
+  <section id="sellers">
      <div class="seller container">
         <h2>Top Sales</h2>
     <div class="best-seller">
 
       <?php
 
-            $get_Product ="SELECT * FROM Products";
+            $get_Product ="SELECT * FROM Products LIMIT 4";
             $feed = mysqli_query($conn, $get_Product);
             while($row = mysqli_fetch_assoc($feed)){
             
@@ -225,225 +166,107 @@ include('database/connect.php');
                 ';
 
            }
-       ?>
+    ?>
      </div>
     </div>
-        <div class="seller container">
+
+
+   <div class="seller container">
                 <h2>New Arrivals</h2>
                 <div class="best-seller">
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/fbnB2yfj/na1.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England T-Shirt</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;10.23
-                                <div class="colors">
-                                    <i class='bx bxs-circle blank'></i>
-                                    <i class='bx bxs-circle blue'></i>
-                                    <i class='bx bxs-circle brown'></i>
+
+             <?php
+                $get_Product ="SELECT * FROM Products ORDER BY Category LIMIT 4";
+                    $feed = mysqli_query($conn, $get_Product);
+                        while($row = mysqli_fetch_assoc($feed)){
+
+                            $Id = $row['SN'];
+                            $P_Name = $row['P_Name'];
+                            $P_Price = $row['Price'];
+                            $Stock = $row['Stock'];
+                            $P_Image = $row['P_Image'];
+
+
+                            echo'
+                                <div class="best-p1">
+                                    <img src="'.$P_Image.'" alt="img">
+                                    <div class="best-p1-txt">
+                                        <div class="name-of-p">
+                                            <p>'.$P_Name.'</p>
+                                        </div>
+                                        <div class="rating">
+                                            <i class="bx bxs-star"> </i>
+                                            <i class="bx bxs-star"></i>
+                                            <i class="bx bxs-star"></i>
+                                            <i class="bx bx-star"></i>
+                                            <i class="bx bx-star"></i>
+                                        </div>
+                                        <div class="price">
+                                            &dollar;'.$P_Price.'
+                                            <div class="colors">
+                                                <i class="bx bxs-circle red"></i>
+                                                <i class="bx bxs-circle blue"></i>
+                                                <i class="bx bxs-circle white"></i>
+                                            </div>
+                                        </div>
+                                        <div class="buy-now">
+                                            <button><a  name="add-cart" href="add_to_cart.php?id='.$Id.'">Add to Cart</a></button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="#">Buy  Now</a></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/zD02zJq8/na2.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England Bag</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;09.28
-                                <div class="colors">
-                                    <i class='bx bxs-circle brown'></i>
-                                    <i class='bx bxs-circle red'></i>
-                                    <i class='bx bxs-circle green'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="">Add to Cart</a></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/Dfj5VBcz/sunglasses1.jpg" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England Sunglass</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;06.24
-                                <div class="colors">
-                                    <i class='bx bxs-circle grey'></i>
-                                    <i class='bx bxs-circle blank'></i>
-                                    <i class='bx bxs-circle blank'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="">Add to Cart</a></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/FszW12Kc/na4.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England Shoes</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;43.67
-                                <div class="colors">
-                                    <i class='bx bxs-circle grey'></i>
-                                    <i class='bx bxs-circle red'></i>
-                                    <i class='bx bxs-circle blue'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="">Add to Cart</a></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            ';
+                   }
+                   ?>
+          </div>
             </div>
             <div class="seller container">
                 <h2>Hot Sales</h2>
                 <div class="best-seller">
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/jS7pSQLf/na4.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England Shoes</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;37.24
-                                <div class="colors">
-                                    <i class='bx bxs-circle grey'></i>
-                                    <i class='bx bxs-circle black'></i>
-                                    <i class='bx bxs-circle blue'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="">Add to Cart</a></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/fbnB2yfj/na1.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England T-Shirt</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;10.23
-                                <div class="colors">
-                                    <i class='bx bxs-circle blank'></i>
-                                    <i class='bx bxs-circle blue'></i>
-                                    <i class='bx bxs-circle brown'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="">Add to Cart</a></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/RhVP7YQk/hs1.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England T-Shirt</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bxs-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;15.24
-                                <div class="colors">
-                                    <i class='bx bxs-circle blank'></i>
-                                    <i class='bx bxs-circle red'></i>
-                                    <i class='bx bxs-circle blue'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="">Add to Cart</a></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="best-p1">
-                        <img src="https://i.postimg.cc/zD02zJq8/na2.png" alt="img">
-                        <div class="best-p1-txt">
-                            <div class="name-of-p">
-                                <p>PS England Bag</p>
-                            </div>
-                            <div class="rating">
-                                <i class='bx bxs-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                                <i class='bx bx-star'></i>
-                            </div>
-                            <div class="price">
-                                &dollar;09.28
-                                <div class="colors">
-                                    <i class='bx bxs-circle blank'></i>
-                                    <i class='bx bxs-circle grey'></i>
-                                    <i class='bx bxs-circle brown'></i>
-                                </div>
-                            </div>
-                            <div class="buy-now">
-                                <button><a href="">Add to Cart</a></button>
-                            </div>
-                        </div>
-                    </div>
+                <?php
+
+                        $get_Product ="SELECT * FROM Products LIMIT 4";
+                        $feed = mysqli_query($conn, $get_Product);
+                        while($row = mysqli_fetch_assoc($feed)){
+
+                                $Id = $row['SN'];
+                                $P_Name = $row['P_Name'];
+                                $P_Price = $row['Price'];
+                                $Stock = $row['Stock'];
+                                $P_Image = $row['P_Image'];
+
+
+                                echo'
+                                    <div class="best-p1">
+                                        <img src="'.$P_Image.'" alt="img">
+                                        <div class="best-p1-txt">
+                                            <div class="name-of-p">
+                                                <p>'.$P_Name.'</p>
+                                            </div>
+                                            <div class="rating">
+                                                <i class="bx bxs-star"> </i>
+                                                <i class="bx bxs-star"></i>
+                                                <i class="bx bxs-star"></i>
+                                                <i class="bx bx-star"></i>
+                                                <i class="bx bx-star"></i>
+                                            </div>
+                                            <div class="price">
+                                                &dollar;'.$P_Price.'
+                                                <div class="colors">
+                                                    <i class="bx bxs-circle red"></i>
+                                                    <i class="bx bxs-circle blue"></i>
+                                                    <i class="bx bxs-circle white"></i>
+                                                </div>
+                                            </div>
+                                            <div class="buy-now">
+                                                <button><a  name="add-cart" href="add_to_cart.php?id='.$Id.'">Add to Cart</a></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ';
+
+                      }
+                   ?>
+
                 </div>
             </div>
         </section>

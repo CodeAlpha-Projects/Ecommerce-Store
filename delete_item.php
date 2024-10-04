@@ -11,7 +11,7 @@ if(isset($_GET["deleteid"])){
             $result = mysqli_query($conn, $sql);
 
             if($result){
-                header('location: index.php');
+                header('location: cart.php');
             }
 
   }

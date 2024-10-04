@@ -12,7 +12,7 @@ include('databases/users_db.php')
 <body>
   <div class="container">
       <header>
-        <h1>MultiShop</h1>
+        <h1>Zenith Store</h1>
         <p>Admin Panel</p>
       </header>
 

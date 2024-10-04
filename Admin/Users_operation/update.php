@@ -33,7 +33,7 @@ include('../databases/users_db.php');
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Update</title>
-  <link rel="stylesheet" href="../assets/css/update.css">
+  <link rel="stylesheet" href="../assets/css/updates.css">
 </head>
 <body>
   <div class="container"> 
