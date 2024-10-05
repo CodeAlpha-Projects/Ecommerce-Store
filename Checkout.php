@@ -1,6 +1,9 @@
 
 <?php
 include('database/connect.php');
+
+
+
 ?>
 
 <!doctype html>
@@ -79,7 +82,10 @@ include('database/connect.php');
 		        <div class="col-md-6 mb-5 mb-md-0">
 		          <h2 class="h3 mb-3 text-black">Billing Details</h2>
 		          <div class="p-3 p-lg-5 border bg-white">
-		            <div class="form-group">
+		    <div class="form-group">
+
+			<!-- Billing Details form start -->
+                <form action="checkout.php" method="post">
 		              <label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
 		              <select id="c_country" class="form-control">
 		                <option value="1">Select a country</option>    
@@ -142,7 +148,11 @@ include('database/connect.php');
 		                <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
 		                <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
 		              </div>
-		            </div>
+                 </form>
+				 <!-- Billing Details End -->
+
+
+		        </div>
 
 		            <div class="form-group">
 		              <label for="c_create_account" class="text-black" data-bs-toggle="collapse" href="#create_an_account" role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1" id="c_create_account"> Create an account?</label>
@@ -165,7 +175,7 @@ include('database/connect.php');
 
 		                  <div class="form-group">
 		                    <label for="c_diff_country" class="text-black">Country <span class="text-danger">*</span></label>
-		                    <select id="c_diff_country" class="form-control">
+		                    <select id="c_diff_country" class="form-control" >
 		                      <option value="1">Select a country</option>    
 		                      <option value="2">bangladesh</option>    
 		                      <option value="3">Algeria</option>    
@@ -293,12 +303,9 @@ include('database/connect.php');
 						?>
 
 
-
-
-
-                       	
-							<?php
-
+	
+						    <?php
+									
 									$sql="SELECT SUM(price) as Total_Price from cart";
 									$result = mysqli_query($conn, $sql);
 									$row = mysqli_fetch_assoc($result);
@@ -313,7 +320,7 @@ include('database/connect.php');
 
 									<tr>
 									<td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-									<td class="text-black font-weight-bold"><strong>'.$price.'</strong></td>
+									<td class="text-black font-weight-bold"><strong><u>'.$price.'</u> /=</strong></td>
 									</tr>
 									 ';
 							  ?>
@@ -324,7 +331,7 @@ include('database/connect.php');
 		                </table>
 
 		                <div class="border p-3 mb-3">
-		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
+		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank" style="color:#111;">Direct Bank Transfer</a></h3>
 
 		                  <div class="collapse" id="collapsebank">
 		                    <div class="py-2">
@@ -334,7 +341,7 @@ include('database/connect.php');
 		                </div>
 
 		                <div class="border p-3 mb-3">
-		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
+		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque" style="color:#111;">Cheque Payment</a></h3>
 
 		                  <div class="collapse" id="collapsecheque">
 		                    <div class="py-2">
@@ -344,7 +351,7 @@ include('database/connect.php');
 		                </div>
 
 		                <div class="border p-3 mb-5">
-		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
+		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal" style="color:#111;">Paypal</a></h3>
 
 		                  <div class="collapse" id="collapsepaypal">
 		                    <div class="py-2">
@@ -354,9 +361,39 @@ include('database/connect.php');
 		                </div>
 
 		                <div class="form-group">
-		                  <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='thankyou.php'">Place Order</button>
+
+						  <!-- SEND EMAIL -->
+						  
+						  <form action="https://formsubmit.co/design.hopedevelopers@gmail.com" method="POST">
+                             <input type="hidden" name="_subject" value="Zenith Stores Order!">
+                             <input type="hidden" name="_template" value="table">
+
+							 <?php
+								$sql = "SELECT * from cart";
+								$result =mysqli_query($conn, $sql);
+							    $row = mysqli_fetch_assoc($result);
+											$SN = $row['SN'];
+											$Product_Name = $row['Product_Name'];
+											$Price = $row['Price'];
+											$P_Image = $row['P_Image'];
+
+
+									echo'
+											<input type="hidden" name="Product-Name:" value="'.$Product_Name.'">
+											<input type="hidden" name="Price:" value="'.$Price.'">
+											<input type="hidden" name="Order number" value="ZS005665">
+									';
+
+
+                                 ?>
+                               <input type="hidden" name="Order Total:" value="<?php echo$price ?>/="> 
+							   <input type="hidden" name="Payment Information" value="Kindly Deposit <?php echo$price ?>/= to Paybill 122333  Use Your Order Number 6745657 as Accoutn Number">
+							
+		                    <button type='submit' class="btn btn-black btn-lg py-3 btn-block">Place Order</button>
+						  </form>
 		                </div>
 
+                        
 		              </div>
 		            </div>
 		          </div>
@@ -364,7 +401,8 @@ include('database/connect.php');
 		        </div>
 		      </div>
 		      <!-- </form> -->
-		    </div>
+		    
+			</div>
 		  </div>
 
 		<!-- Start Footer Section -->

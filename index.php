@@ -1,7 +1,51 @@
 <?php
 include('database/connect.php');
-?>
 
+
+    
+// Add to cart
+ if(isset($_GET["addid"])){
+    $item = $_GET['addid'];
+
+           $Product ="SELECT * FROM Products where SN = $item";
+           $result = mysqli_query($conn, $Product);
+           $common = mysqli_fetch_assoc($result);
+                       $Name = $common['P_Name'];
+                       $Price = $common['Price'];
+                       $Image = $common['P_Image'];
+               
+
+                    try{
+
+                       $Update_Cart = "INSERT INTO cart(Product_Name,Price,P_Image) 
+                           VALUES('$Name', $Price,'$Image')";         
+                           $result = mysqli_query($conn,$Update_Cart); 
+
+
+                   //Alert and redirect to homepage after successfull addition to cart
+                        echo"
+                           <script>
+                               alert('Product Added Successfully')
+                               window.location ='index.php';
+                           </script>
+                           
+                           ";
+
+                    } catch(mysqli_sql_exception){
+
+                   //Alert and redirect to homepage after unsuccessfull addition to cart
+                           echo"<script>
+                               alert('There Was an Error!')
+                               window.location ='index.php';
+                           </script>";
+
+                    }
+       
+            
+         }
+                   
+
+  ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +86,7 @@ include('database/connect.php');
                     <li><a href="#sellers">Shop</a></li>
                     <li><a href="#news">Blog</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li> <a href="cart.php"> <button type="button" class="cart-btn">Cart
+                    <li onclick="window.location='cart.php'"><button type="button" class="cart-btn">Cart
                      <?php
                       
                       $value = "SELECT * FROM cart";
@@ -56,7 +100,7 @@ include('database/connect.php');
                       ';
                     ?>
 
-                    </button></a></li>
+                    </button></li>
                     
                 </ul>
                 <div class="logo">
@@ -159,7 +203,7 @@ include('database/connect.php');
                                 </div>
                             </div>
                             <div class="buy-now">
-                                <button><a  name="add-cart" href="add_to_cart.php?id='.$Id.'">Add to Cart</a></button>
+                                <button><a  name="add-cart" href="index.php?addid='.$Id.'">Add to Cart</a></button>
                             </div>
                         </div>
                     </div>
@@ -210,7 +254,7 @@ include('database/connect.php');
                                             </div>
                                         </div>
                                         <div class="buy-now">
-                                            <button><a  name="add-cart" href="add_to_cart.php?id='.$Id.'">Add to Cart</a></button>
+                                            <button><a  name="add-cart" href="index.php?addid='.$Id.'">Add to Cart</a></button>
                                         </div>
                                     </div>
                                 </div>
@@ -258,7 +302,7 @@ include('database/connect.php');
                                                 </div>
                                             </div>
                                             <div class="buy-now">
-                                                <button><a  name="add-cart" href="add_to_cart.php?id='.$Id.'">Add to Cart</a></button>
+                                                <button><a  name="add-cart" href="index.php?addid='.$Id.'">Add to Cart</a></button>
                                             </div>
                                         </div>
                                     </div>
@@ -392,3 +436,7 @@ include('database/connect.php');
     </body>
 
 </html>
+
+<?php
+
+     ?>

@@ -137,10 +137,29 @@ include('database/connect.php');
                 <div class="col-md-6">
                   <div class="row mb-5">
                     <div class="col-md-6 mb-3 mb-md-0">
-                      <button class="btn btn-black btn-sm btn-block">Update Cart</button>
+                      <button class="btn btn-black btn-sm btn-block" onclick='window.location="index.php"'>Continue Shopping</button>
                     </div>
                     <div class="col-md-6">
-                      <button class="btn btn-outline-black btn-sm btn-block">Continue Shopping</button>
+							 <button name="delete" type="submit" class="btn btn-outline-black btn-sm btn-block">Clear Cart</button>
+                        <!-- Clear cart -->
+						  <?php
+
+							if (isset($_GET['delete'])){
+
+								$clear = "DELETE from cart";
+								mysqli_query($conn,$clear);
+
+								echo"
+									<script>
+										alert('Cart Cleared Successfully!')
+										window.location = 'cart.php';
+									</script>
+									
+                                  ";
+							 }
+
+                          ?>
+
                     </div>
                   </div>
                   <div class="row">
