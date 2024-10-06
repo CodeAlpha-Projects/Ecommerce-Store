@@ -148,6 +148,8 @@ include('database/connect.php');
 		                <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
 		                <input type="text" class="form-control" id="c_phone" name="c_phone" placeholder="Phone Number">
 		              </div>
+
+					  <button type='submit' class="btn btn-black btn-lg py-3 btn-block mt-5">Submit</button>
                  </form>
 				 <!-- Billing Details End -->
 
