@@ -1,6 +1,12 @@
 
 <?php
 include('database/connect.php');
+ // redict user to login if not yet
+        session_start();
+        if(!isset($_SESSION['user'])){
+        header('location: login.php');
+        }
+
 ?>
 
 

@@ -5,7 +5,16 @@ include('database/connect.php');
     
 // Add to cart
  if(isset($_GET["addid"])){
-    $item = $_GET['addid'];
+
+        // redict user to login if not yet
+        session_start();
+        if(!isset($_SESSION['user'])){
+        header('location: login.php');
+        }
+
+
+
+      $item = $_GET['addid'];
 
            $Product ="SELECT * FROM Products where SN = $item";
            $result = mysqli_query($conn, $Product);
@@ -68,6 +77,7 @@ include('database/connect.php');
                     <p>Free shipping, 30-day return or refund guarantee.</p>
                 </div>
                 <div class="sing_in_up ">
+
                     <a href="# ">SIGN IN</a>
                     <a href="# ">SIGN UP</a>
                 </div>

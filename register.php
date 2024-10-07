@@ -3,9 +3,34 @@
 include('database/connect.php');
 
 
+if(isset($_POST['reg'])){
 
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $sadress = $_POST['address'];
+    $state = $_POST['country'];
+    $paddress = $_POST['Posta'];
+    $pass = $_POST['pass2'];
 
+    $sql = "INSERT INTO users(First_Name,Last_Name, Phone, Email, Street_Address, Country, Postal, Pass)
+      VALUES('$fname', '$lname', '$phone', '$email', '$sadress', '$state', '$paddress', '$pass')
+    ";
+      
+    $result = mysqli_query($conn,$sql);
+ 
+          echo"
+                <script>
+                        document.getElementById('nextprevious').style.display = 'none';
+                        document.getElementById('all-steps').style.display = 'none';
+                        document.getElementById('register').style.display = 'none';
+                        document.getElementById('text-message').style.display = 'block';
+                
+                </script>
+            ";
 
+}
 
 ?>
 
@@ -25,7 +50,7 @@ include('database/connect.php');
     <div class="container mt-5">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-md-8">
-                <form id="regForm">
+                <form id="regForm" action="register.php" method="POST">
                     <h1 id="register">Registration Form</h1>
                     
                     <div class="all-steps" id="all-steps"> 
@@ -38,17 +63,17 @@ include('database/connect.php');
                     <div class="tab">
                       <h6>What's your First Name?</h6>
                         <p>
-                          <input placeholder="First Name..." oninput="this.className = ''" name="fname">
+                          <input type="text" placeholder="First Name..." oninput="this.className = ''" name="fname">
                         </p>
 
                         <h6>What's your Last Name?</h6>
                         <p>
-                          <input placeholder="Last Name..." oninput="this.className = ''" name="fname">
+                          <input type="text" placeholder="Last Name..." oninput="this.className = ''" name="lname">
                         </p>
 
                         <h6>What's Your Email Address?</h6>
                         <p>
-                          <input placeholder="Email..." oninput="this.className = ''" name="email">
+                          <input  type="email"  placeholder="Email..." oninput="this.className = ''" name="email">
                         </p>
                         
                     </div>
@@ -57,20 +82,20 @@ include('database/connect.php');
                     <div class="tab">
                       <h6>What's your Phone Number?</h6>
                         <p>
-                          <input placeholder="+254..." oninput="this.className = ''" name="phone">
+                          <input type="text" placeholder="+254..." oninput="this.className = ''" name="phone">
                         </p>
 
 
                         <h6>What's Your Country?</h6>
                         <p>
-                           <input placeholder="Country..." oninput="this.className = ''" name="country">
+                           <input type="text" placeholder="Country..." oninput="this.className = ''" name="country">
                         </p>
 
                   
 
                      <h6>What's your Street Address?</h6>
                         <p>
-                            <input placeholder="Street Address..." oninput="this.className = ''" name="Address">
+                            <input type="text" placeholder="Street Address..." oninput="this.className = ''" name="address">
                         </p>
                     </div>
 
@@ -78,26 +103,25 @@ include('database/connect.php');
                     <div class="tab">
                         <h6>What's your Posta/Zip code?</h6>
                         <p>
-                            <input placeholder="Posta/Zip..." oninput="this.className = ''" name="Posta">
+                            <input type="text" placeholder="Posta/Zip..." oninput="this.className = ''" name="Posta">
                         </p> 
                         
                         <h6>What's Your Appartment Name?</h6>
-                        <p><input placeholder="Apartment..." oninput="this.className = ''" name="Apartment"></p> 
+                        <p><input type="text" placeholder="Apartment..." oninput="this.className = ''" name="Apartment"></p> 
                     </div>
     
     
                     <div class="tab">
                         <h6>Create Password</h6>
                         <p>
-                            <input placeholder="Create Password..." oninput="this.className = ''" name="pass1">
+                            <input type="password" placeholder="Create Password..." oninput="this.className = ''" name="pass1">
                         </p>
                         <h6>Confirm Password</h6>
                         <p>
-                         <input placeholder="Confirm Password..." oninput="this.className = ''" name="pass2">
+                         <input  type="password"  placeholder="Confirm Password..." oninput="this.className = ''" name="pass2">
                         </p>
+
                     </div>
-
-
 
                     <div class="thanks-message text-center" id="text-message"> <img src="assets/images/tick.png" width="100" class="mb-4">
                         <h3>Thank you for your response</h3> <span>You can now Login and continue shopping</span> <br><br>
@@ -106,7 +130,8 @@ include('database/connect.php');
                     <div style="overflow:auto;" id="nextprevious">
                         <div style="float:right;">
                           <button type="button" id="prevBtn" onclick="nextPrev(-1)"><i class="fa fa-angle-double-left"></i></button> 
-                          <button type="button" id="nextBtn" onclick="nextPrev(1)"><i class="fa fa-angle-double-right"></i></button> </div>
+                          <button type="button" id="nextBtn" onclick="nextPrev(1)"><i class="fa fa-angle-double-right"></i></button> 
+                        </div>
                     </div>
                 </form>
             </div>

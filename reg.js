@@ -15,7 +15,7 @@ var currentTab = 0;
               document.getElementById("prevBtn").style.display = "inline";
               }
               if (n == (x.length - 1)) {
-              document.getElementById("nextBtn").innerHTML = '<i class="fa fa-angle-double-right"></i>';
+                  document.getElementById("nextBtn").innerHTML = '<input type="submit" class="btn rounded-pill p-0 m-0" name="reg" style="color:#fff;" Value="Register">';
               } else {
               document.getElementById("nextBtn").innerHTML = '<i class="fa fa-angle-double-right"></i>';
               }
@@ -33,8 +33,6 @@ var currentTab = 0;
               document.getElementById("all-steps").style.display = "none";
               document.getElementById("register").style.display = "none";
               document.getElementById("text-message").style.display = "block";
-
-
 
 
               }

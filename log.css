@@ -6,6 +6,8 @@ body{
     height: 100vh;
     font-family: sans-serif;
     background-image: url(Assets/images/cart-2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 form{
@@ -17,7 +19,7 @@ form{
     padding: 3rem;
     border-radius: 2rem 0 2rem;
     backdrop-filter: blur(20px);
-    background-size: cover;
+    
 }
 
 
