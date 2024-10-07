@@ -1,6 +1,6 @@
 <?php
 
-    include('../databases/users_db.php');
+    include('../databases/connect.php');
 
     if(isset($_GET["deleteid"])){
 

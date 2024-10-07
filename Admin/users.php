@@ -5,7 +5,7 @@ if(!isset($_SESSION['admin'])){
   header('location: index.php');
 }
 
-include('databases/users_db.php');
+include('databases/connect.php');
 ?> 
 
 <!DOCTYPE html>
@@ -13,11 +13,10 @@ include('databases/users_db.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zetech-Online-Voting Admin Panel</title>
+    <title>Zenith Stores Admin Panel</title>
     <link rel="stylesheet" href="Assets/Css/user.css">
     <!-- material icon -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" />
-    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" /> 
 </head>
 <body>
     <div class="container">       
@@ -30,7 +29,7 @@ include('databases/users_db.php');
                             <div class="top-hero">
                               <div class="logo">
                               </div>
-                              <h1>Zetech Online</h1>
+                              <h1>Zenith Stores</h1>
                           </div>
 
                        <!-- Top right -->
@@ -168,12 +167,12 @@ include('databases/users_db.php');
                               <th>SN</th>
                               <th>First_Name</th>
                               <th>Last_Name</th>
-                              <th>Registration_No</th>                             
-                              <th>Level_Study</th>
-                              <th>Course</th>
-                              <th>Year_Study</th>
-                              <th>Student_Email</th>
-                              <th>User_Pass</th>
+                              <th>Phone</th>                             
+                              <th>Email</th>
+                              <th>Street_Address</th>
+                              <th>Country</th>
+                              <th>Postal</th>
+                              <th>Pass</th>
                               <th>Reg_Date</th>
                               <th>Operation</th>
                               
@@ -191,12 +190,12 @@ include('databases/users_db.php');
                                     $SN = $row['SN'];
                                     $F_name = $row['First_Name'];
                                     $L_name = $row['Last_Name'];
-                                    $Reg_no = $row['Registration_No'];
-                                    $L_study = $row['Level_Study'];
-                                    $course = $row['Course'];
-                                    $Y_study = $row['Year_Study'];
-                                    $S_email = $row['Student_Email'];
-                                    $U_pass = $row['User_Pass'];
+                                    $Phone = $row['Phone'];
+                                    $Email = $row['Email'];
+                                    $saddress = $row['Street_Address'];
+                                    $country = $row['Country'];
+                                    $posta = $row['Postal'];
+                                    $U_pass = $row['Pass'];
                                     $Reg_date = $row['Reg_Date'];
       
                       
@@ -205,11 +204,11 @@ include('databases/users_db.php');
                                             <td>'.$SN.'</td>
                                             <td>'.$F_name.'</td>
                                             <td>'.$L_name.'</td>
-                                            <td>'. $Reg_no.'</td>
-                                            <td>'.$L_study.'</td>
-                                            <td>'.$course.'</td>
-                                            <td>'.$Y_study.'</td>
-                                            <td>'.$S_email.'</td>
+                                            <td>'.$Phone.'</td>
+                                            <td>'.$Email.'</td>
+                                            <td>'.$saddress.'</td>
+                                            <td>'.$country.'</td>
+                                            <td>'.$posta.'</td>
                                             <td>'.$U_pass.'</td>
                                             <td class="reg-d">'.$Reg_date.'</td>  
                                             <td class="operations">

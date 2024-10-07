@@ -1,9 +1,9 @@
 <?php
 
-// session_start();
-// if(!isset($_SESSION['admin'])){
-//   header('location: index.php');
-// }
+session_start();
+if(!isset($_SESSION['admin'])){
+  header('location: index.php');
+}
 
 include('databases/connect.php');
 ?> 
@@ -89,8 +89,8 @@ include('databases/connect.php');
                             <h3>Users</h3>
                           </a>
 
-                          <a href="candidates.php">
-                            <span class="material-icons-sharp">how_to_vote</span>
+                          <a href="products.php">
+                            <span class="material-icons-sharp">storefront</span>
                             <h3>Candidates</h3>
                           </a>
 
@@ -107,7 +107,7 @@ include('databases/connect.php');
 
 
                           <a href="votes.php">
-                            <span class="material-icons-sharp">insights</span>
+                            <span class="material-icons-sharp">shopping_cart_checkout</span>
                             <h3>Insights</h3>
                           </a>
 
@@ -155,7 +155,7 @@ include('databases/connect.php');
       <!-- Display Aside -->
 
       <div class="head-sec">
-        <h1>User analytics</h1>
+        <h1>Business analytics</h1>
       </div>
 
  
@@ -192,9 +192,9 @@ include('databases/connect.php');
                                       $result = mysqli_query($conn, $sql);
                                       $total_users = mysqli_num_rows($result);
                                   
-                                      $school_enrolment = 1000;
+                                      $registered = 1000;
 
-                                      $Total_users_percentage = ceil((($total_users/$school_enrolment) * 100)) ;
+                                      $Total_users_percentage = ceil((($total_users/$registered) * 100)) ;
 
 
                                       echo'
@@ -210,23 +210,23 @@ include('databases/connect.php');
                   <small class="text-muted">last 24hrs</small>
                 </div>
 
-                <!-- END OF FEE -->
+                <!-- END OF Users -->
 
                <div class="income">
                   <span class="material-icons-sharp">bar_chart</span>
                   <div class="middle">
                      <div class="left">
-                      <h3>Total Sales</h3>
+                      <h3>Total Stock</h3>
 
-                    <!--Total Candidates start-->
+                    <!--Total products start-->
                     <?php
-                        $sql = "SELECT * FROM candidates";
+                        $sql = "SELECT * FROM products";
                         $result = mysqli_query($conn, $sql);
-                        $total_candidates = mysqli_num_rows($result);
+                        $total_Products = mysqli_num_rows($result);
                     
 
                         echo'
-                                <h1>'.$total_candidates.'</h1>
+                                <h1>'.$total_Products.'</h1>
                         
                           ';
                         ?>
@@ -243,14 +243,14 @@ include('databases/connect.php');
                               <?php
                                   $sql = "SELECT * FROM products";
                                   $result = mysqli_query($conn, $sql);
-                                  $total_candidates = mysqli_num_rows($result);
+                                  $total_products = mysqli_num_rows($result);
                               
-                                  $required_candidates = 50;
+                                  $min_stock = 50;
 
-                                  $Total_candidates_percentage = ceil((($total_candidates/$required_candidates) * 100)) ;
+                                  $Total_products_percentage = ceil((($total_products/$min_stock) * 100)) ;
 
                                   echo'
-                                          <p>'.$Total_candidates_percentage.'%</p>
+                                          <p>'.$Total_products_percentage.'%</p>
                                   
                                     ';
                             ?>
@@ -268,16 +268,16 @@ include('databases/connect.php');
                   <span class="material-icons-sharp">stacked_line_chart</span>
                   <div class="middle">
                      <div class="left">
-                      <h3>Total Voted Users</h3>
+                      <h3>Total Sales</h3>
                       
             <?php
-              $sql = "SELECT * FROM voted_users";
+              $sql = "SELECT * FROM sales";
               $result = mysqli_query($conn, $sql);
-              $total_voted_users = mysqli_num_rows($result);
+              $total_sales = mysqli_num_rows($result);
            
 
                echo'
-                       <h1>'.$total_voted_users.'</h1>
+                       <h1>'.$total_sales.'</h1>
                
                  ';
                ?>
@@ -290,19 +290,19 @@ include('databases/connect.php');
 
                     <!--Candidate Percentage Calculation start -->
                          <?php
-                                  $sql1 = "SELECT * FROM users";
-                                  $sql2 = "SELECT * FROM voted_users";
+                                  $sql1 = "SELECT * FROM sales";
+                                  $sql2 = "SELECT * FROM cart";
 
                                   $result1 = mysqli_query($conn, $sql1);
                                   $result2 = mysqli_query($conn, $sql2);
 
-                                  $total_users = mysqli_num_rows($result1);
-                                  $total_voted_users = mysqli_num_rows($result2);
+                                  $total_sales = mysqli_num_rows($result1);
+                                  $target = 3000;
 
-                                  $Total_voted_users_percentage = ceil((($total_voted_users/$total_users) * 100)) ;
+                                  $Total_sales_percentage = ceil((($total_sales/$target) * 100)) ;
 
                                   echo'
-                                          <p>'.$Total_voted_users_percentage.'%</p>
+                                          <p>'.$Total_sales_percentage.'%</p>
                                   
                                     ';
                             ?>

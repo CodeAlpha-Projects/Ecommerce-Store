@@ -1,5 +1,5 @@
 <?php
-include('databases/users_db.php')
+include('databases/connect.php')
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +53,7 @@ include('databases/users_db.php')
         $user = $_POST['user'];
         $pass = $_POST["pass"];
 
-        $sql = "SELECT * from admins where Email = '$user' and User_Pass = '$pass'";
+        $sql = "SELECT * from admins where Email = '$user' and Pass = '$pass'";
 
            $result = mysqli_query($conn, $sql);
             $row = mysqli_num_rows($result);

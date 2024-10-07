@@ -6,7 +6,7 @@ if(!isset($_SESSION['admin'])){
 }
 
 
-include('../databases/users_db.php');
+include('../databases/connect.php');
 
           $id = $_GET["updateid"];
 
@@ -17,13 +17,15 @@ include('../databases/users_db.php');
           $sn = $row['SN'];
           $f_name = $row['First_Name'];
           $l_name = $row['Last_Name'];
-          $reg_no = $row['Registration_No'];
-          $l_study = $row['Level_Study'];
-          $course = $row['Course'];
-          $y_study = $row['Year_Study'];
-          $s_email = $row['Student_Email'];
-          $u_pass = $row['User_Pass'];
+          $Phone = $row['Phone'];
+          $Email = $row['Email'];
+          $Address = $row['Street_Address'];
+          $Country = $row['Country'];
+          $Postal = $row['Postal'];
+          $Pass = $row['Pass'];
           $reg_date = $row['Reg_Date']; 
+
+ 
 
 ?>
 
@@ -33,15 +35,15 @@ include('../databases/users_db.php');
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Update</title>
-  <link rel="stylesheet" href="../assets/css/updates.css">
+  <link rel="stylesheet" href="../assets/css/p-update.css">
 </head>
 <body>
   <div class="container"> 
        
 
-           <h1 class="title">Updating</h1>
+        <h1 class="title">Updating</h1>
         <b class="user"><?php echo $f_name;?></b>
-        <b class="user"><?php echo $reg_no;?></b>
+        <b class="user"><?php echo $l_name;?></b>
      <a href="../users.php" class = "home-btn"><button>Back</button></a>  
 
 
@@ -72,24 +74,18 @@ include('../databases/users_db.php');
                 <!-- parent-2 -->
                 <div class="parent parent-2">
                       <div class="rn sect">
-                          <label for="">Reg_No</label>
-                          <input type="text" name="reg-no" value="<?php echo$reg_no; ?>">                  
+                          <label for="">Phone</label>
+                          <input type="text" name="Email" value="<?php echo$Email; ?>">                  
                       </div>
 
                       <div class="ls sect">
-                          <label for="">Level_Study</label> 
-                          <input list="level" name="l-study" value="<?php echo$l_study; ?>">
-                                    <datalist id="level">
-                                            <option value="Degree">
-                                            <option value="Diploma">
-                                            <option value="Certificate">
-                                            <option value="Artisan">
-                                        </datalist>
+                          <label for="">Street_Address</label> 
+                          <input type="text" name="Address" value="<?php echo$Address; ?>">
                     </div>
 
                       <div class="c sect">
-                          <label for="">Course</label>
-                          <input type="text" name="course" value="<?php echo$course; ?>">                  
+                          <label for="">Country</label>
+                          <input type="text" name="Country" value="<?php echo$Country; ?>">                  
                       </div>
 
 
@@ -99,24 +95,14 @@ include('../databases/users_db.php');
                 <div class="parent parent-3">
 
                       <div class="ys sect">
-                          <label for="">Year_Study</label>
-                          <input list="year" name="y-study" value="<?php echo$y_study; ?>" >
-                                      <datalist id="year">
-                                            <option value="1st Year">
-                                            <option value="2nd Year">
-                                            <option value="3rd Year">
-                                            <option value="4th Year">
-                                      </datalist>
+                          <label for="">Postal Address</label>
+                          <input type="text" name="Postal" value="<?php echo$Postal; ?>" >
                       </div>
 
-                    <div class="sm sect">
-                          <label for="">Student_Email</label>
-                          <input type="text" name="s-email" value="<?php echo$s_email; ?>">   
-                    </div>
 
                     <div class="up sect">
                           <label for="">User_pass</label>
-                          <input type="text" name="user-pass" value="<?php echo$u_pass; ?>">                
+                          <input type="text" name="user-pass" value="<?php echo$Pass; ?>">                
                     </div>
 
                 </div>          
@@ -141,19 +127,20 @@ if(isset($_POST['update'])){
           $Sn = $_POST['sn'];
           $First_name = $_POST['f-name'];
           $Last_name = $_POST['l-name']; 
-          $Reg_no = $_POST['reg-no'];
-          $Level_study = $_POST['l-study'];
-          $Year_study = $_POST['y-study'];
-          $Course = $_POST['course'];
-          $Student_email = $_POST['s-email'];
-          $User_pass = $_POST['user-pass'];
+          $Email = $_POST['Email'];
+          $Level_study = $_POST['Email'];
+          $Country = $_POST['Country'];
+          $Postal = $_POST['Postal'];
+          $Pass = $_POST['user-pass'];
+
           
 
 
+
           $sql = "UPDATE users  set SN = $sn,
-           First_Name = '$First_name', Last_Name = '$Last_name', Registration_No = '$Reg_no',
-           Level_Study = '$Level_study', Course = '$Course', Year_Study = '$Year_study',
-            Student_Email = '$Student_email', User_Pass = '$User_pass'  where SN = $id";
+           First_Name = '$First_name', Last_Name = '$Last_name', Email = '$Email',
+           Street_Address = '$Address', Country = '$Country', Postal = '$Postal',
+              Pass = '$Pass'  where SN = $id";
       
 
       try{

@@ -5,7 +5,7 @@ if(!isset($_SESSION['admin'])){
   header('location: index.php');
 }
 
-include('../databases/users_db.php');
+include('../databases/connect.php');
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ include('../databases/users_db.php');
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Update</title>
-  <link rel="stylesheet" href="../assets/css/update.css">
+  <link rel="stylesheet" href="../assets/css/p-update.css">
 </head>
 <body>
   <div class="container"> 
@@ -45,24 +45,18 @@ include('../databases/users_db.php');
                 <!-- parent-2 -->
                 <div class="parent parent-2">
                       <div class="rn sect">
-                          <label for="">Reg_No</label>
-                          <input type="text" name="reg-no" placeholder="Registration No"  required>                  
+                          <label for="Phone">Phone</label>
+                          <input type="text" name="phone" placeholder="Phone.."  required>                  
                       </div>
 
                       <div class="ls sect">
-                          <label for="">Level_Study</label> 
-                          <input list="level" name="l-study" placeholder="Level of Study"  required>
-                                    <datalist id="level">
-                                            <option value="Degree">
-                                            <option value="Diploma">
-                                            <option value="Certificate">
-                                            <option value="Artisan">
-                                        </datalist>
+                          <label for="Email">Email</label> 
+                          <input type="email" name="email" placeholder="Email"  required>
                     </div>
 
                       <div class="c sect">
-                          <label for="">Course</label>
-                          <input type="text" name="course" placeholder="Student's Course"  required>                  
+                          <label for="">Street_Address</label>
+                          <input type="text" name="address" placeholder="Street_Address"  required>                  
                       </div>
 
 
@@ -72,24 +66,18 @@ include('../databases/users_db.php');
                 <div class="parent parent-3">
 
                       <div class="ys sect">
-                          <label for="">Year_Study</label>
-                          <input list="year" name="y-study" placeholder="Year of Study"  required>
-                                      <datalist id="year">
-                                            <option value="1st Year">
-                                            <option value="2nd Year">
-                                            <option value="3rd Year">
-                                            <option value="4th Year">
-                                      </datalist>
+                          <label for="">Country</label>
+                          <input type="text" name="country" placeholder="country/state"  required>
                       </div>
 
                     <div class="sm sect">
-                          <label for="">Student_Email</label>
-                          <input type="email" name="s-email" placeholder="Student Email"  required>   
+                          <label for="">Postal</label>
+                          <input type="text" name="posta" placeholder="Postal Address"  required>   
                     </div>
 
                     <div class="up sect">
                           <label for="">User_pass</label>
-                          <input type="password" name="user-pass" placeholder="User Pass"  required>                
+                          <input type="password" name="pass" placeholder="User Pass"  required>                
                     </div>
 
                 </div>          
@@ -107,23 +95,24 @@ include('../databases/users_db.php');
 </html>
 
 
+
 <?php
 
 if(isset($_POST['add'])){
 
           $First_name = $_POST['f-name'];
           $Last_name = $_POST['l-name']; 
-          $Reg_no = $_POST['reg-no'];
-          $Level_study = $_POST['l-study'];
-          $Year_study = $_POST['y-study'];
-          $Course = $_POST['course'];
-          $Student_email = $_POST['s-email'];
-          $User_pass = $_POST['user-pass'];
+          $phone = $_POST['phone'];
+          $email = $_POST['email'];
+          $address = $_POST['address'];
+          $country = $_POST['country'];
+          $posta = $_POST['posta'];
+          $User_pass = $_POST['pass'];
           
 
 
-          $sql = "INSERT INTO users (First_Name,Last_Name, Registration_No, Level_Study, Course, Year_Study, Student_Email, User_Pass)
-          values ('$First_name','$Last_name','$Reg_no','$Level_study', '$Course','$Year_study','$Student_email', '$User_pass')";
+          $sql = "INSERT INTO users (First_Name,Last_Name,  Phone,  Email, Street_Address, Country, Postal, Pass)
+          values ('$First_name','$Last_name','$phone','$email', '$address','$country','$posta', '$User_pass')";
       
 
       try{
