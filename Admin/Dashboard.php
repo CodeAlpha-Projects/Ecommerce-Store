@@ -105,7 +105,6 @@ include('databases/connect.php');
                             <h3>Innovations</h3>
                           </a>
 
-
                           <a href="votes.php">
                             <span class="material-icons-sharp">shopping_cart_checkout</span>
                             <h3>Insights</h3>
